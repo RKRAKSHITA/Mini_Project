@@ -6,10 +6,13 @@
 #define PROJECT_NAME    "Step_into_DLC"
 
 /* Prototypes for all the test functions */
-void test_add(void);
-void test_subtract(void);
-void test_multiply(void);
-void test_divide(void);
+void test_and();
+void test_or();
+void test_nand();
+void test_nor();
+void test_not();
+void test_exor();
+void test_exnor();
 
 /* Required by the unity test framework */
 void setUp(){}
@@ -23,40 +26,87 @@ int main()
   UNITY_BEGIN();
 
 /* Run Test functions */
-  RUN_TEST(test_add);
-  RUN_TEST(test_subtract);
-  RUN_TEST(test_multiply);
-  RUN_TEST(test_divide);
+  RUN_TEST(test_and);
+  RUN_TEST(test_or);
+  RUN_TEST(test_nand);
+  RUN_TEST(test_nor);
+  RUN_TEST(test_not);
+  RUN_TEST(test_exor);
+  RUN_TEST(test_exnor);
 
   /* Close the Unity Test Framework */
   return UNITY_END();
 }
 
 /* Write all the test functions */ 
-void test_add(void) {
-  TEST_ASSERT_EQUAL(30, add(10, 20));
+void test_and() {
+  TEST_ASSERT_EQUAL(0, and(0, 0));
+  TEST_ASSERT_EQUAL(0, and(0, 1));
+  TEST_ASSERT_EQUAL(0, and(1, 0));
+  TEST_ASSERT_EQUAL(1, and(1, 1));
   
   /* Dummy fail*/
-  TEST_ASSERT_EQUAL(15000, add(7500, 7500));
+  TEST_ASSERT_EQUAL(15000, and(0,0));
 }
 
-void test_subtract(void) {
-  TEST_ASSERT_EQUAL(-3, subtract(0, 3));
+void test_or() {
+  TEST_ASSERT_EQUAL(0, or(0, 0));
+  TEST_ASSERT_EQUAL(1, or(0, 1));
+  TEST_ASSERT_EQUAL(1, or(1, 0));
+  TEST_ASSERT_EQUAL(1, or(1, 1));
   
   /* Dummy fail*/
-  TEST_ASSERT_EQUAL(100, subtract(1000, 900));
+  TEST_ASSERT_EQUAL(100, or(1,0));
 }
 
-void test_multiply(void) {
-  TEST_ASSERT_EQUAL(0, multiply(1, 0));
+void test_nand() {
+  TEST_ASSERT_EQUAL(1, nand(0, 0));
+  TEST_ASSERT_EQUAL(1, nand(0, 1));
+  TEST_ASSERT_EQUAL(1, nand(1, 0));
+  TEST_ASSERT_EQUAL(0, nand(1, 1));
   
   /* Dummy fail*/
-  TEST_ASSERT_EQUAL(10, multiply(2, 5));
+  TEST_ASSERT_EQUAL(10, nand(0, 0));
 }
 
-void test_divide(void) {
-  TEST_ASSERT_EQUAL(0, divide(1, 0));
+void test_nor() {
+  TEST_ASSERT_EQUAL(1, nor(0, 0));
+  TEST_ASSERT_EQUAL(0, nor(0, 1));
+  TEST_ASSERT_EQUAL(0, nor(1, 0));
+  TEST_ASSERT_EQUAL(0, nor(1, 1));
   
   /* Dummy fail*/
-  TEST_ASSERT_EQUAL(1, divide(2, 2));
+  TEST_ASSERT_EQUAL(1, nor(1, 1));
 }
+
+void test_not() {
+  TEST_ASSERT_EQUAL(1, not(0));
+  TEST_ASSERT_EQUAL(0, not(1));
+    
+  /* Dummy fail*/
+  TEST_ASSERT_EQUAL(1, not(1));
+}
+
+
+void test_exor() {
+  TEST_ASSERT_EQUAL(0, exor(0, 0));
+  TEST_ASSERT_EQUAL(1, or(0, 1));
+  TEST_ASSERT_EQUAL(1, or(1, 0));
+  TEST_ASSERT_EQUAL(0, or(1, 1));
+  
+  
+  /* Dummy fail*/
+  TEST_ASSERT_EQUAL(1, exor(1, 1));
+}
+
+void test_exnor() {
+  TEST_ASSERT_EQUAL(1, exnor(1, 0));
+  TEST_ASSERT_EQUAL(0, exnor(0, 1));
+  TEST_ASSERT_EQUAL(0, exnor(0, 0));
+  TEST_ASSERT_EQUAL(1, exnor(1, 1));
+  
+  /* Dummy fail*/
+  TEST_ASSERT_EQUAL(1, exnor(0, 1));
+}
+
+
